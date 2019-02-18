@@ -177,7 +177,7 @@ body {
   display: inline-flex;
 }
 .user-icon-container {
-  margin-right: 15%;
+  margin-right: 12px;
   padding-top: 5%;
 }
 .user-icon {

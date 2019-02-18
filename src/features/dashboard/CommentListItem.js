@@ -1,5 +1,7 @@
 import React from "react";
 
+//this component represents each individual comment
+
 const CommentListItem = ({ comment }) => {
   return (
     <div>

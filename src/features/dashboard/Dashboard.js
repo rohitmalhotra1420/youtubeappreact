@@ -11,10 +11,14 @@ class Dashboard extends Component {
     isLiked: false,
     comments: []
   };
+
   componentDidMount() {
+    //this function fetches the trending youTube videos
     this.popularVideoList();
   }
+
   popularVideoList = () => {
+    //setting the response of async call in state
     getTrendingVideos()
       .then(response =>
         this.setState({
@@ -25,6 +29,10 @@ class Dashboard extends Component {
       )
       .catch(error => alert(error.message));
   };
+
+  //this function accepts a query
+  //give search result and store in the state
+  //sets the first result as current video in player
   searchVideo = query => {
     this.setState({ loading: true });
     getSearchResult(query)
@@ -32,11 +40,14 @@ class Dashboard extends Component {
         this.setState({
           videoList: response.data.items,
           currentVideo: response.data.items[0],
-          loading: false
+          loading: false,
+          comments: []
         })
       )
       .catch(error => alert(error.message));
   };
+
+  //this function changes current active video in player
   setCurrentVideo = video => {
     if (video !== this.state.currentVideo) {
       this.setState({
@@ -46,18 +57,25 @@ class Dashboard extends Component {
       });
     }
   };
+
+  //this function is used for liking and disliking a video
   toggleLike = () => {
     this.setState({
       isLiked: !this.state.isLiked
     });
   };
-  postComment = commentObj => {
-    const updatedComments = this.state.comments;
-    updatedComments.push(commentObj);
 
-    this.setState({
-      comments: updatedComments
-    });
+  //this function accepts commmentText and userName
+  //posts a comment on video
+  postComment = commentObj => {
+    const { userName, commentText } = commentObj;
+    if (userName.length > 0 && commentText.length > 0) {
+      const updatedComments = this.state.comments;
+      updatedComments.push(commentObj);
+      this.setState({
+        comments: updatedComments
+      });
+    }
   };
   render() {
     const { videoList, loading, currentVideo, isLiked, comments } = this.state;

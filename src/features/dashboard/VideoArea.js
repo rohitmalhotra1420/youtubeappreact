@@ -4,6 +4,7 @@ import Player from "./Player";
 import VideoDetails from "./VideoDetails";
 import CommentSection from "./CommentSection";
 
+//It consists of player, comments, video details and videolist
 class VideoArea extends Component {
   state = {};
   render() {

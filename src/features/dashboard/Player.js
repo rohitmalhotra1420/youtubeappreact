@@ -1,5 +1,7 @@
 import React from "react";
 
+//this component represents the player.
+
 const Player = ({ videoId }) => {
   var id;
   if (typeof videoId === "string") {

@@ -5,11 +5,14 @@ class SearchBar extends Component {
     searchQuery: ""
   };
 
+  //It sets search query in state when user enters it
   onInputChange = searchQuery => {
     this.setState({
       searchQuery
     });
   };
+
+  //It captures query from state and pass it to search video prop
   handleSearch = () => {
     const searchQuery = this.state.searchQuery;
     if (searchQuery.length > 0) {

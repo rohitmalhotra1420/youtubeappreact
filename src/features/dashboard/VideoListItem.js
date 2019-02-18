@@ -1,5 +1,6 @@
 import React from "react";
 
+//it representseach individual Video in videolist
 const VideoListItem = ({ video, setCurrentVideo }) => {
   return (
     <div className="video-tile" onClick={() => setCurrentVideo(video)}>

@@ -1,5 +1,7 @@
 import React from "react";
 
+//this component consists of details of current active video in player and like button
+
 const VideoDetails = ({ video, isLiked, toggleLike }) => {
   return (
     <div className="details-container">

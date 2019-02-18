@@ -6,12 +6,18 @@ class CommentSection extends Component {
     userName: "",
     commentText: ""
   };
+
+  //It sets username in state when user enter it
   onNameChange = userName => {
     this.setState({ userName });
   };
+
+  //It sets comments in state when user enters it
   onCommentTextChange = commentText => {
     this.setState({ commentText });
   };
+
+  //It captures comment data from state and pass it to postComment prop
   handleSubmit = () => {
     const commentObj = {
       userName: this.state.userName,
@@ -19,6 +25,8 @@ class CommentSection extends Component {
     };
     this.props.postComment(commentObj);
   };
+
+  //this function sets the fields empty on ui.
   handleCancel = () => {
     this.setState({
       userName: "",
