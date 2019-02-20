@@ -9,7 +9,8 @@ class Dashboard extends Component {
     loading: true,
     currentVideo: null,
     isLiked: false,
-    comments: []
+    comments: [],
+    error: false
   };
 
   componentDidMount() {
@@ -22,12 +23,15 @@ class Dashboard extends Component {
     getTrendingVideos()
       .then(response =>
         this.setState({
-          videoList: response.data.items,
-          currentVideo: response.data.items[0],
+          videoList: response.items,
+          currentVideo: response.items[0],
           loading: false
         })
       )
-      .catch(error => alert(error.message));
+      .catch(error => {
+        alert(error.message);
+        this.setState({ error: true, loading: false });
+      });
   };
 
   //this function accepts a query
@@ -38,13 +42,16 @@ class Dashboard extends Component {
     getSearchResult(query)
       .then(response =>
         this.setState({
-          videoList: response.data.items,
-          currentVideo: response.data.items[0],
+          videoList: response.items,
+          currentVideo: response.items[0],
           loading: false,
           comments: []
         })
       )
-      .catch(error => alert(error.message));
+      .catch(error => {
+        alert(error.message);
+        this.setState({ error: true, loading: false });
+      });
   };
 
   //this function changes current active video in player
@@ -78,7 +85,14 @@ class Dashboard extends Component {
     }
   };
   render() {
-    const { videoList, loading, currentVideo, isLiked, comments } = this.state;
+    const {
+      videoList,
+      loading,
+      currentVideo,
+      isLiked,
+      comments,
+      error
+    } = this.state;
     return (
       <div>
         <SearchBar searchVideo={this.searchVideo} />
@@ -91,6 +105,7 @@ class Dashboard extends Component {
           isLiked={isLiked}
           postComment={this.postComment}
           comments={comments}
+          error={error}
         />
       </div>
     );

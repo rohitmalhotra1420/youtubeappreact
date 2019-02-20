@@ -16,10 +16,14 @@ class VideoArea extends Component {
       isLiked,
       toggleLike,
       postComment,
-      comments
+      comments,
+      error
     } = this.props;
     if (loading) {
-      return <h1 className="loading-text">Loading...</h1>;
+      return <h1 className="centered-text">Loading...</h1>;
+    }
+    if (error) {
+      return <h1 className="centered-text">Error Loading Data</h1>;
     }
     return (
       <div className="video-area">
