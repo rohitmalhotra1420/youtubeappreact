@@ -35,7 +35,11 @@ class VideoArea extends Component {
             toggleLike={toggleLike}
             isLiked={isLiked}
           />
-          <CommentSection postComment={postComment} comments={comments} />
+          <CommentSection
+            postComment={postComment}
+            comments={comments}
+            currentVideo={currentVideo}
+          />
         </div>
         <div className="list-container">
           <VideoList videos={videoList} setCurrentVideo={setCurrentVideo} />

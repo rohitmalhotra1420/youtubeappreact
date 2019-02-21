@@ -6,7 +6,11 @@ class CommentSection extends Component {
     userName: "",
     commentText: ""
   };
-
+  componentDidUpdate(prevProps) {
+    if (this.props.currentVideo !== prevProps.currentVideo) {
+      this.handleCancel();
+    }
+  }
   //It sets username in state when user enter it
   onNameChange = userName => {
     this.setState({ userName });
