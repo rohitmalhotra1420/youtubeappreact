@@ -27,6 +27,7 @@ class Dashboard extends Component {
     //setting the response of async call in state
     getTrendingVideos()
       .then(response => {
+        console.log(response);
         if (response.items.length > 0) {
           this.setState({
             videoList: response.items,
@@ -47,9 +48,10 @@ class Dashboard extends Component {
   //give search result and store in the state
   //sets the first result as current video in player
   searchVideo = query => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: false });
     getSearchResult(query)
       .then(response => {
+        console.log(response);
         if (response.items.length > 0) {
           this.setState({
             videoList: response.items,
