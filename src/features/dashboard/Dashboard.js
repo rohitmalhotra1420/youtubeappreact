@@ -10,7 +10,8 @@ class Dashboard extends Component {
     currentVideo: null,
     isLiked: false,
     comments: [],
-    error: false
+    error: false,
+    errorMessage: null
   };
 
   componentDidMount() {
@@ -18,19 +19,27 @@ class Dashboard extends Component {
     this.popularVideoList();
   }
 
+  showError = errorMessage => {
+    this.setState({ error: true, loading: false, errorMessage: errorMessage });
+  };
+
   popularVideoList = () => {
     //setting the response of async call in state
     getTrendingVideos()
-      .then(response =>
-        this.setState({
-          videoList: response.items,
-          currentVideo: response.items[0],
-          loading: false
-        })
-      )
+      .then(response => {
+        if (response.items.length > 0) {
+          this.setState({
+            videoList: response.items,
+            currentVideo: response.items[0],
+            loading: false
+          });
+        } else {
+          let errorMessage = "Unable to Load Videos";
+          this.showError(errorMessage);
+        }
+      })
       .catch(error => {
-        alert(error.message);
-        this.setState({ error: true, loading: false });
+        this.showError(error.message);
       });
   };
 
@@ -40,17 +49,22 @@ class Dashboard extends Component {
   searchVideo = query => {
     this.setState({ loading: true });
     getSearchResult(query)
-      .then(response =>
-        this.setState({
-          videoList: response.items,
-          currentVideo: response.items[0],
-          loading: false,
-          comments: []
-        })
-      )
+      .then(response => {
+        console.log(response);
+        if (response.items.length > 0) {
+          this.setState({
+            videoList: response.items,
+            currentVideo: response.items[0],
+            loading: false,
+            comments: []
+          });
+        } else {
+          let errorMessage = "No Videos Found";
+          this.showError(errorMessage);
+        }
+      })
       .catch(error => {
-        alert(error.message);
-        this.setState({ error: true, loading: false });
+        this.showError(error.message);
       });
   };
 
@@ -91,7 +105,8 @@ class Dashboard extends Component {
       currentVideo,
       isLiked,
       comments,
-      error
+      error,
+      errorMessage
     } = this.state;
     return (
       <div>
@@ -106,6 +121,7 @@ class Dashboard extends Component {
           postComment={this.postComment}
           comments={comments}
           error={error}
+          errorMessage={errorMessage}
         />
       </div>
     );
