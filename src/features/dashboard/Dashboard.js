@@ -50,7 +50,6 @@ class Dashboard extends Component {
     this.setState({ loading: true });
     getSearchResult(query)
       .then(response => {
-        console.log(response);
         if (response.items.length > 0) {
           this.setState({
             videoList: response.items,
